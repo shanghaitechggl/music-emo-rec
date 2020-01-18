@@ -2,7 +2,6 @@ import os
 import csv
 import numpy as np
 
-
 rf = open('record-idx.csv','r')
 rs=rf.readlines()
 test_idxs=rs[-4]
@@ -41,7 +40,7 @@ idxs=train_idxs+test_idxs
 
 ls=[16, 32, 64]
 for out_len in ls:
-	out_file=str(out_len)+'.csv'
+	out_file=str(out_len)+'_var.csv'
 	out_file=open(out_file, 'w', encoding='utf8', newline='')
 	writer=csv.writer(out_file)
 	for i in range(len(idxs)):
@@ -53,7 +52,7 @@ for out_len in ls:
 		num=int(length/out_len)
 		out_data=[]
 		for j in range(out_len):
-			out_data+=[np.mean(line[j*num:(j+1)*num])]
+			out_data+=[np.std(line[j*num:(j+1)*num])]
 		writer.writerow(out_data)
 		print('长度为{}, 第{}个数据'.format(out_len, i))
 	out_file.close()
